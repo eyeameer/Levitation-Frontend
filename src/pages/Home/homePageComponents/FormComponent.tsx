@@ -16,14 +16,14 @@ const options = [
 export default function FormComponent() {
   const loading = useAppSelector(state => state.form.loading)
   const [step, setStep] = useState(1);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState<readonly { value: string; label: string; }[]>([]);
   const { register, handleSubmit, control, reset, formState: { errors, isValid } } = useForm<IFormData>({ mode: "all" });
   const [geolocationStatus, setGeolocationStatus] = useState('');
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch()
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     data.geolocationStatus = geolocationStatus
-    data.languages = selectedOptions
+    data.languages = [...selectedOptions];
     const formData = new FormData();
     Object.keys(data).forEach(key => {
       if (key === 'files') {

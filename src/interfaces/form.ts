@@ -1,5 +1,5 @@
 interface languages{
-  option:string;
+  label:string;
   value:string;
 }
 export interface IFormData  {
